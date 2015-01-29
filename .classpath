@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="lib" path="lib/castor.jar"/>
+	<classpathentry kind="lib" path="lib/JPhotoAlbum.jar"/>
+	<classpathentry kind="lib" path="lib/metadata-extractor-2.2.2.jar"/>
+	<classpathentry kind="lib" path="lib/xalan.jar"/>
+	<classpathentry kind="lib" path="lib/xerces.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry kind="lib" path="D:/Program Files/Eclipse/plugins/mockito-all-1.9.5.jar" sourcepath="C:/Users/Wai/.m2/repository/org/mockito/mockito-all/1.9.5/mockito-all-1.9.5-sources.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

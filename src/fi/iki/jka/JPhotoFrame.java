@@ -6,6 +6,9 @@
  */
 package fi.iki.jka;
 
+import implementations.OptionPaneImpl;
+import interfaces.OptionPane;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -41,6 +44,7 @@ import javax.swing.JComponent;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JMenuBar;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
@@ -97,6 +101,7 @@ public class JPhotoFrame extends JFrame
     protected JPhotoExifDialog exifDialog = null;
     protected JFrame helpFrame = null;
     protected File photoDirectory = null;
+    protected OptionPane optionPane = new OptionPaneImpl();
     
     protected static HashMap allFrames = new HashMap();
     
@@ -546,7 +551,7 @@ public class JPhotoFrame extends JFrame
         else if (cmd.equals(JPhotoMenu.A_WATERMARK)) {
             String def = photos.getWatermark();
             if (def.equals(""))
-                def = "© "+Calendar.getInstance().get(Calendar.YEAR)+" ";
+                def = "ï¿½ "+Calendar.getInstance().get(Calendar.YEAR)+" ";
             String res = JOptionPane.showInputDialog(this, "Watermark",
                                                      def);
             if (res!=null)
@@ -581,11 +586,11 @@ public class JPhotoFrame extends JFrame
         }
         else if (cmd.equals(JPhotoMenu.A_SLIDESHOW)) {
             if (photos.getSize()>0) {
-                JPhotoShow show = new JPhotoShow(photos, 5000, list);
+                JPhotoShow show = getNewJPhotoShow(photos, 5000, list);
                 show.setVisible(true);
             }
             else
-                JOptionPane.showMessageDialog(this, "No photos to show!",
+                optionPane.showMessageDialog(this, "No photos to show!",
                                               APP_NAME, JOptionPane.ERROR_MESSAGE);
                 
         }
@@ -596,7 +601,7 @@ public class JPhotoFrame extends JFrame
             JOptionPane.showMessageDialog(this, APP_NAME+" v1.4.5 - Organize and Publish Your Digital Photos.\n"+
                                           "Copyright 2005-2007 Jari Karjala [www.jpkware.com],\n"
                                           +"Tarja Hakala [www.hakalat.net]"
-                                          +" and Zbynek Mužík [zbynek.muzik@email.cz]\n"
+                                          +" and Zbynek Muçƒ…k [zbynek.muzik@email.cz]\n"
                                           +"This is free software, licenced under the GNU General Public License.",
                                           JPhotoMenu.A_ABOUT, JOptionPane.INFORMATION_MESSAGE);
         }
@@ -1069,5 +1074,13 @@ public class JPhotoFrame extends JFrame
                 System.exit(1);
             }
         }
+    }
+    
+    public void setOptionPane(OptionPane optionPane) {
+    	this.optionPane = optionPane;
+    }
+    
+    public JPhotoShow getNewJPhotoShow(JPhotoCollection photos, int interval, JList list) {
+    	return new JPhotoShow(photos, interval, list);
     }
 }
