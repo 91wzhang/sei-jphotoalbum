@@ -56,6 +56,8 @@ public class JPhotoMenu {
     public static String A_SHOWEXIF = "Exif information...";
     public static String A_SLIDESHOW = "Start Slideshow";
     
+    public static String A_SLIDESHOW_FASTER = "Start Slideshow Faster";
+    
     public static String A_HELP = "Contents...";
     public static String A_ABOUT = "About...";
 
@@ -158,6 +160,7 @@ public class JPhotoMenu {
         add(menu, A_SHOWEXIF, KeyEvent.VK_E,
             KeyStroke.getKeyStroke(KeyEvent.VK_E, ActionEvent.CTRL_MASK) );
         add(menu, A_SLIDESHOW, KeyEvent.VK_S);
+        add(menu, A_SLIDESHOW_FASTER, KeyEvent.VK_S);
 
         
         menu = new JMenu(new JPhotoAction(listener, "Help", KeyEvent.VK_H));

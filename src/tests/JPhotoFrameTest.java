@@ -71,5 +71,25 @@ public class JPhotoFrameTest {
 		frame.actionPerformed(event);
 		verify(mockPhotoShow).setVisible(true);
 	}
+	
+	@Test
+	public void testViewSlideShowFasterWithoutPhoto() {
+		frame.setOptionPane(mockOptionPane);
+		doReturn(0).when(mockPhotoCollection).getSize();
+		ActionEvent event = new ActionEvent(frame, 0, JPhotoMenu.A_SLIDESHOW_FASTER);		
+		frame.actionPerformed(event);
+		verify(mockOptionPane).showMessageDialog(any(Component.class), any(Object.class), any(String.class), any(int.class));
+		
+	}
+	
+	@Test
+	public void testViewSlideShowFasterWithPhoto() {
+		doReturn(1).when(mockPhotoCollection).getSize();		
+		ActionEvent event = new ActionEvent(frame, 0, JPhotoMenu.A_SLIDESHOW_FASTER);
+		frame.actionPerformed(event);
+		verify(mockPhotoShow).setVisible(true);
+	}
+	
+	
 
 }

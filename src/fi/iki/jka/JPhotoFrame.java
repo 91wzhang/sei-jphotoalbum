@@ -594,6 +594,16 @@ public class JPhotoFrame extends JFrame
                                               APP_NAME, JOptionPane.ERROR_MESSAGE);
                 
         }
+        else if (cmd.equals(JPhotoMenu.A_SLIDESHOW_FASTER)) {
+            if (photos.getSize()>0) {
+                JPhotoShow show = getNewJPhotoShow(photos, 1000, list);
+                show.setVisible(true);
+            }
+            else
+                optionPane.showMessageDialog(this, "No photos to show!",
+                                              APP_NAME, JOptionPane.ERROR_MESSAGE);
+                
+        }
         else if (cmd.equals(JPhotoMenu.A_HELP)) {
             displayHelp();
         }
