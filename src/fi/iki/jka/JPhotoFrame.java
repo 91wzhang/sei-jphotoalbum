@@ -585,24 +585,10 @@ public class JPhotoFrame extends JFrame
             showExif();
         }
         else if (cmd.equals(JPhotoMenu.A_SLIDESHOW)) {
-            if (photos.getSize()>0) {
-                JPhotoShow show = getNewJPhotoShow(photos, 5000, list);
-                show.setVisible(true);
-            }
-            else
-                optionPane.showMessageDialog(this, "No photos to show!",
-                                              APP_NAME, JOptionPane.ERROR_MESSAGE);
-                
+            startSlideShow();                
         }
-        else if (cmd.equals(JPhotoMenu.A_SLIDESHOW_FASTER)) {
-            if (photos.getSize()>0) {
-                JPhotoShow show = getNewJPhotoShow(photos, 1000, list);
-                show.setVisible(true);
-            }
-            else
-                optionPane.showMessageDialog(this, "No photos to show!",
-                                              APP_NAME, JOptionPane.ERROR_MESSAGE);
-                
+        else if (cmd.equals(JPhotoMenu.A_PREVIEW)) {
+            startPreview();                
         }
         else if (cmd.equals(JPhotoMenu.A_HELP)) {
             displayHelp();
@@ -639,6 +625,26 @@ public class JPhotoFrame extends JFrame
             System.out.println("Not implemented: "+cmd);
         
         setTitle();
+    }
+    
+    public void startSlideShow() {
+    	if (photos.getSize()>0) {
+            JPhotoShow show = getNewJPhotoShow(photos, 5000, list);
+            show.setVisible(true);
+        }
+        else
+            optionPane.showMessageDialog(this, "No photos to show!",
+                                          APP_NAME, JOptionPane.ERROR_MESSAGE);
+    }
+    
+    public void startPreview() {
+    	if (photos.getSize()>0) {
+            JPhotoShow show = getNewJPhotoShow(photos, 500, list);
+            show.setVisible(true);
+        }
+        else
+            optionPane.showMessageDialog(this, "No photos to show!",
+                                          APP_NAME, JOptionPane.ERROR_MESSAGE);
     }
 
     public void insertPhotos(String files[]) {
@@ -1054,6 +1060,8 @@ public class JPhotoFrame extends JFrame
         }
         return ok;
     }
+    
+    
     
     public static void main(String args[]) throws Exception {
         JPhotoFrame frame = null;

@@ -6,6 +6,7 @@ import java.awt.Component;
 import java.awt.event.ActionEvent;
 
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 
 import fi.iki.jka.JPhotoCollection;
 import fi.iki.jka.JPhotoFrame;
@@ -46,50 +47,56 @@ public class JPhotoFrameTest {
 					}
 			});
 		} catch (Exception e) {
-			fail("Failed to initiate frame for testing.");
+			fail("Failed to initialise frame for testing.");
 		}						
 		
 		doReturn(mockPhotoShow)
-		.when(frame)
-		.getNewJPhotoShow(any(JPhotoCollection.class), any(int.class), any(JList.class));
+			.when(frame)
+			.getNewJPhotoShow(any(JPhotoCollection.class), any(int.class), any(JList.class));		
 	}
 
 	@Test
 	public void testViewSlideShowWithoutPhoto() {
 		frame.setOptionPane(mockOptionPane);
-		doReturn(0).when(mockPhotoCollection).getSize();
+		doReturn(0)
+			.when(mockPhotoCollection)
+			.getSize();
 		ActionEvent event = new ActionEvent(frame, 0, JPhotoMenu.A_SLIDESHOW);		
 		frame.actionPerformed(event);
-		verify(mockOptionPane).showMessageDialog(any(Component.class), any(Object.class), any(String.class), any(int.class));
-		
+		verify(mockOptionPane).showMessageDialog(eq(frame), eq("No photos to show!"), eq(JPhotoFrame.APP_NAME), eq(JOptionPane.ERROR_MESSAGE));		
 	}
 	
 	@Test
 	public void testViewSlideShowWithPhoto() {
-		doReturn(1).when(mockPhotoCollection).getSize();		
+		doReturn(1)
+			.when(mockPhotoCollection)
+			.getSize();		
 		ActionEvent event = new ActionEvent(frame, 0, JPhotoMenu.A_SLIDESHOW);
 		frame.actionPerformed(event);
+		verify(frame).getNewJPhotoShow(eq(mockPhotoCollection), eq(5000), any(JList.class));
 		verify(mockPhotoShow).setVisible(true);
 	}
 	
 	@Test
-	public void testViewSlideShowFasterWithoutPhoto() {
+	public void testPreviewSlideShowWithoutPhoto() {
 		frame.setOptionPane(mockOptionPane);
-		doReturn(0).when(mockPhotoCollection).getSize();
-		ActionEvent event = new ActionEvent(frame, 0, JPhotoMenu.A_SLIDESHOW_FASTER);		
+		doReturn(0)
+			.when(mockPhotoCollection)
+			.getSize();
+		ActionEvent event = new ActionEvent(frame, 0, JPhotoMenu.A_PREVIEW);		
 		frame.actionPerformed(event);
-		verify(mockOptionPane).showMessageDialog(any(Component.class), any(Object.class), any(String.class), any(int.class));
-		
+		verify(mockOptionPane).showMessageDialog(eq(frame), eq("No photos to show!"), eq(JPhotoFrame.APP_NAME), eq(JOptionPane.ERROR_MESSAGE));		
 	}
 	
 	@Test
-	public void testViewSlideShowFasterWithPhoto() {
-		doReturn(1).when(mockPhotoCollection).getSize();		
-		ActionEvent event = new ActionEvent(frame, 0, JPhotoMenu.A_SLIDESHOW_FASTER);
+	public void testPreviewSlideShowWithPhoto() {
+		doReturn(1)
+			.when(mockPhotoCollection)
+			.getSize();		
+		ActionEvent event = new ActionEvent(frame, 0, JPhotoMenu.A_PREVIEW);
 		frame.actionPerformed(event);
+		verify(frame).getNewJPhotoShow(eq(mockPhotoCollection), eq(500), any(JList.class));
 		verify(mockPhotoShow).setVisible(true);
 	}
-	
-	
 
 }
