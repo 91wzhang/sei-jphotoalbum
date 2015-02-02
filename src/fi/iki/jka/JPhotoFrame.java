@@ -7,7 +7,7 @@
 package fi.iki.jka;
 
 import implementations.OptionPaneImpl;
-import interfaces.OptionPane;
+import interfaces.IOptionPane;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -101,7 +101,7 @@ public class JPhotoFrame extends JFrame
     protected JPhotoExifDialog exifDialog = null;
     protected JFrame helpFrame = null;
     protected File photoDirectory = null;
-    protected OptionPane optionPane = new OptionPaneImpl();
+    protected IOptionPane optionPane = new OptionPaneImpl();
     
     protected static HashMap allFrames = new HashMap();
     
@@ -1092,13 +1092,9 @@ public class JPhotoFrame extends JFrame
                 System.exit(1);
             }
         }
-    }
+    }        
     
-    public void setOptionPane(OptionPane optionPane) {
-    	this.optionPane = optionPane;
-    }
-    
-    public JPhotoShow getNewJPhotoShow(JPhotoCollection photos, int interval, JList list) {
+    protected JPhotoShow getNewJPhotoShow(JPhotoCollection photos, int interval, JList list) {
     	return new JPhotoShow(photos, interval, list);
     }
 }

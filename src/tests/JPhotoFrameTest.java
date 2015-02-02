@@ -13,7 +13,7 @@ import fi.iki.jka.JPhotoFrame;
 import fi.iki.jka.JPhotoList;
 import fi.iki.jka.JPhotoMenu;
 import fi.iki.jka.JPhotoShow;
-import interfaces.OptionPane;
+import interfaces.IOptionPane;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -26,33 +26,50 @@ import static org.mockito.Mockito.*;
 @RunWith(MockitoJUnitRunner.class)
 public class JPhotoFrameTest {		
 	@Mock
-	private OptionPane mockOptionPane;
+	private IOptionPane mockOptionPane;
 	@Mock
 	private JPhotoCollection mockPhotoCollection;
 	@Mock
 	private JPhotoShow mockPhotoShow;
 	
-	private JPhotoFrame frame;
+	private JPhotoFrameForTest frame;
 	
+	private class JPhotoFrameForTest extends JPhotoFrame {
+
+		private static final long serialVersionUID = 1L;
+
+		public JPhotoFrameForTest(String frameName, JPhotoCollection photos)
+				throws Exception {
+			super(frameName, photos);
+		}
+		
+		@Override
+		protected void init(String frameName, JPhotoCollection photos) {
+			this.photos = photos;
+			this.list = new JPhotoList(photos, 1);
+		}
+		
+		@Override
+		protected JPhotoShow getNewJPhotoShow(JPhotoCollection photos, int interval, JList list) {
+	    	return mockPhotoShow;
+	    }
+		
+		public void setOptionPane(IOptionPane optionPane) {
+	    	this.optionPane = optionPane;
+	    }
+		
+		
+	}
+			
 	@Before
 	public void setUp() {
 		doReturn("testCollection").when(mockPhotoCollection).getTitle();				
 				
 		try {
-			frame = spy(new JPhotoFrame(null, mockPhotoCollection) {
-					@Override
-					protected void init(String frameName, JPhotoCollection photos) {
-						this.photos = photos;
-						this.list = new JPhotoList(photos, 1);
-					}
-			});
+			frame = spy(new JPhotoFrameForTest(null, mockPhotoCollection));
 		} catch (Exception e) {
 			fail("Failed to initialise frame for testing.");
-		}						
-		
-		doReturn(mockPhotoShow)
-			.when(frame)
-			.getNewJPhotoShow(any(JPhotoCollection.class), any(int.class), any(JList.class));		
+		}											
 	}
 
 	@Test

@@ -6,7 +6,7 @@ import java.awt.Component;
  * @author Dandan Lyu; Wei Zhang
  *
  */
-public interface OptionPane {
+public interface IOptionPane {
 	void showMessageDialog(
 			Component parentComponent,
             Object message,

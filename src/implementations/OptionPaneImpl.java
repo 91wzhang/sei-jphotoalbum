@@ -2,13 +2,13 @@ package implementations;
 
 import java.awt.Component;
 import javax.swing.JOptionPane;
-import interfaces.OptionPane;
+import interfaces.IOptionPane;
 
 /**
  * @author Dandan Lyu, Wei Zhang
  *
  */
-public class OptionPaneImpl implements OptionPane {
+public class OptionPaneImpl implements IOptionPane {
 
 	/**
 	 * 
